@@ -1,7 +1,7 @@
 /*
     Jonathan Mirabile
     CS3100
-	Lab 5 - threads and synchronization
+    Lab 5 - threads and synchronization
 */
 
 #include <ncurses.h>
@@ -18,11 +18,11 @@ void * countUp(void *ptr) {
 	int i = 0, key;
 
 	while (1) {
-        pthread_mutex_lock(&ncurses);
+		pthread_mutex_lock(&ncurses);
 		wprintw(topwin, "Count up: %d\n", i++);  //ncurses
 		wrefresh(topwin);  //ncurses
 		key = getch();  //ncurses
-        pthread_mutex_unlock(&ncurses);
+        	pthread_mutex_unlock(&ncurses);
 		if (key != ERR) {
 			break;
 		}
@@ -34,11 +34,11 @@ void * countDown(void *ptr) {
 	int i = 0, key;
 
 	while (1) {
-        pthread_mutex_lock(&ncurses);
+		pthread_mutex_lock(&ncurses);
 		wprintw(botwin, "Count down: %d\n", i--);   //ncurses
 		wrefresh(botwin);  //ncurses
 		key = getch();  //ncurses
-        pthread_mutex_unlock(&ncurses);
+		pthread_mutex_unlock(&ncurses);
 		if (key != ERR) {
 			break;
 		}
@@ -76,13 +76,13 @@ int main(int argc, char **argv) {
 	refresh();
 
 	// Thread code goes HERE!
-    pthread_mutex_init(&ncurses, NULL);
+	pthread_mutex_init(&ncurses, NULL);
 
-    pthread_create(&thread1, NULL, &countUp, NULL);
-    pthread_create(&thread2, NULL, &countDown, NULL);
+	pthread_create(&thread1, NULL, &countUp, NULL);
+	pthread_create(&thread2, NULL, &countDown, NULL);
 
-    pthread_join(thread1, NULL);
-    pthread_join(thread2, NULL);
+	pthread_join(thread1, NULL);
+	pthread_join(thread2, NULL);
 
 	usleep(3000000);
 	endwin();	
